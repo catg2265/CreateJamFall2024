@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
         ghostList.Add(new Ghost("Angry robust old man, always has a bottle in his hand. \r\nHe has a rosacea, a loud voice, and smells strong. He coughs a lot.\r\nWorked as a miner for many years, until his health made it impossible for him to continue working. \r\nNeighbors say that sometimes he can become very violent towards his wife. \r\nDied of alcoholism.", false, false, false, false, true, false, false));
         //If a characteristic equals 1 call that true, if it equals 0 call that false
-        ghostList.Add(new Ghost("Insert text here inside citation", false, false, false, false, true, false, false));
+        //ghostList.Add(new Ghost("Insert text here inside citation", false, false, false, false, true, false, false));
         //Please add the rest of the ghosts
 
         GhoulHint A = new GhoulHint("Don't be afraid of being eaten, love will accompany you.", new int[] {2,4,8});
