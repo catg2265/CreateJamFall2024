@@ -9,38 +9,37 @@ public class GameManager : MonoBehaviour
 
     public List<Ghost> ghostList = new List<Ghost>();
     public List<Ghoul> ghoulList = new List<Ghoul>();
+    public Ghoul currentGhoul;
 
+    public bool activateGhostMatch = false;
 
     private void Start()
     {
         ghostList.Clear();
         ghoulList.Clear();
 
-        ghostList.Add(new Ghost("Angry robust old man, always has a bottle in his hand.\r\nHe has a rosacea, a loud voice, and smells strong. He coughs a lot.\r\nWorked as a miner for many years, until his health made it impossible for him to continue working.\r\nNeighbors say that sometimes he can become very violent towards his wife.\r\nDied of alcoholism.", false, false, false, false, true, false, false));
-        ghostList.Add(new Ghost("A baby. Died right after her birth.", false, false, false, false, true, false, false));
-        ghostList.Add(new Ghost("Young man in his thirties. Pale and thin.\r\nHe used to work as a clown in a circus.\r\nDied on the stage because of a severe accident during performance.\r\nHe brought a lot of laughters to kids and families.\r\nHe used to sit in silence for a long time in the dressing room, and sighs.", false, false, false, false, true, false, false));
-        ghostList.Add(new Ghost("Two twin sisters. Around 10 years' old.\r\nBodies curled up strangely because of their genetic disease.\r\nDied of their disease.\r\nTheir family are too poor to offer both of them a proper medical treatment.\r\nThey both refused to be the only one who gets an opportunity to be cured.\r\nThey died hand in hand.", false, false, false, false, true, false, false));
-        ghostList.Add(new Ghost("Old woman, slightly fat. Sharp eyes, tender smile.\r\nAfter inheriting her husband's estate at an early age,\r\nshe never gets married again and becomes a very successful businesswoman.\r\nPeople used to gossip about her a lot, saying all kinds of mean things,\r\nuntil she builds schools, hospitals for the whole region.\r\nLived a long and peaceful life in her old age.", false, false, false, false, true, false, false));
+        ghostList.Add(new Ghost("Angry robust old man, always has a bottle in his hand.\r\nHe has a rosacea, a loud voice, and smells strong. He coughs a lot.\r\nWorked as a miner for many years, until his health made it impossible for him to continue working.\r\nNeighbors say that sometimes he can become very violent towards his wife.\r\nDied of alcoholism.", 0));
+        ghostList.Add(new Ghost("A baby. Died right after her birth.", 1));
+        ghostList.Add(new Ghost("Young man in his thirties. Pale and thin.\r\nHe used to work as a clown in a circus.\r\nDied on the stage because of a severe accident during performance.\r\nHe brought a lot of laughters to kids and families.\r\nHe used to sit in silence for a long time in the dressing room, and sighs.", 2));
+        ghostList.Add(new Ghost("Two twin sisters. Around 10 years' old.\r\nBodies curled up strangely because of their genetic disease.\r\nDied of their disease.\r\nTheir family are too poor to offer both of them a proper medical treatment.\r\nThey both refused to be the only one who gets an opportunity to be cured.\r\nThey died hand in hand.", 3));
+        ghostList.Add(new Ghost("Old woman, slightly fat. Sharp eyes, tender smile.\r\nAfter inheriting her husband's estate at an early age,\r\nshe never gets married again and becomes a very successful businesswoman.\r\nPeople used to gossip about her a lot, saying all kinds of mean things,\r\nuntil she builds schools, hospitals for the whole region.\r\nLived a long and peaceful life in her old age.",4));
         ghostList.Add(new Ghost(@"Teenage boy, has beautiful eyes, very kind character.He has two big buck teeth.
         Super smart in his class in a private school for elites, won the Mathematical Olympiad.
         Sadly got bullied by classmates because of his looking.
-        Died of suicide.", false, false, false, false, true, false, false));
+        Died of suicide.",5));
         ghostList.Add(new Ghost(@"A male game developper. Passionate. Curses at bugs every 15 minutes.
         Long hair, long fingers curled in a strange way. Protruding eyes.
         Made a world record for the longest time without going out of the apartment when he is alive. 
         Buried with his computer.
-        Died of having too much junk food and not enough sleep.", false, false, false, false, true, false, false));
+        Died of having too much junk food and not enough sleep.",6));
         ghostList.Add(new Ghost(@"A drag queen, around 40 years' old. Very sensitive and caring, yet has a hot-tempered personality.
         Stopped talking with his family for many years. Travelled around the world for performances.
         Died because he got choked by a huge olive during a party.
-        He was in his fanciest clothes when he was sent to the hospital, surrounded by his loving friends.", false, false, false, false, true, false, false));
+        He was in his fanciest clothes when he was sent to the hospital, surrounded by his loving friends.",7));
         ghostList.Add(new Ghost(@"A lottery winner, female first generation immigrant, around 80 years' old.
         Strict mother at home, best bargainer at the market.
         Always wears the shabbiest clothes, saves every penny for her daughter's education.
-        Died of age. She argued in anger with her family till the last day of her life.", false, false, false, false, true, false, false));
-        //If a characteristic equals 1 call that true, if it equals 0 call that false
-        //ghostList.Add(new Ghost("Insert text here inside citation", false, false, false, false, true, false, false));
-        //Please add the rest of the ghosts
+        Died of age. She argued in anger with her family till the last day of her life.",8));
 
         GhoulHint A = new GhoulHint("Don't be afraid of being eaten, love will accompany you.", new int[] {2,4,8});
         GhoulHint B = new GhoulHint("Rage is my inner beast.", new int[] { 1, 7, 9 });
@@ -62,39 +61,35 @@ public class GameManager : MonoBehaviour
         ghoulList.Add(new Ghoul(new GhoulHint[] {  B,C,D,I,J  }));
         ghoulList.Add(new Ghoul(new GhoulHint[] {  A,C,E,H,J  }));
         ghoulList.Add(new Ghoul(new GhoulHint[] {  B,F,H,J  }));
-        //Please add the rest of the "Ghouls"
 
 
-
+        currentGhoul = ghoulList[UnityEngine.Random.Range(0,ghoulList.Count-1)];
     }
 
 
     private void Update()
     {
-        
+        if (activateGhostMatch)
+        {
+
+            activateGhostMatch = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
 }
 public class Ghost
 {
     string summary;
-    bool intelligence;
-    bool love;
-    bool luck;
-    bool beauty;
-    bool power;
-    bool wealth;
-    bool health;
-    public Ghost(string summary, bool intelligence, bool love, bool luck, bool beauty, bool power, bool wealth, bool health)
+    int id;
+    public Ghost(string summary, int id)
     {
         this.summary = summary;
-        this.intelligence = intelligence;
-        this.love = love;
-        this.luck = luck;
-        this.beauty = beauty;
-        this.power = power;
-        this.wealth = wealth;
-        this.health = health;
+        this.id = id;
     }
 }
 public class Ghoul
