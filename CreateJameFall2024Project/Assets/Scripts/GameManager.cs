@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public string ghoulIntroduction;
 
+    public GameObject moodBar;
+
     public List<Ghost> ghostList = new List<Ghost>();
     public List<Ghoul> ghoulList = new List<Ghoul>();
     public Ghoul currentGhoul;
@@ -17,6 +19,7 @@ public class GameManager : MonoBehaviour
     {
         ghostList.Clear();
         ghoulList.Clear();
+        moodBar.SetActive(false);
 
         ghostList.Add(new Ghost("Angry robust old man, always has a bottle in his hand.\r\nHe has a rosacea, a loud voice, and smells strong. He coughs a lot.\r\nWorked as a miner for many years, until his health made it impossible for him to continue working.\r\nNeighbors say that sometimes he can become very violent towards his wife.\r\nDied of alcoholism.", 0));
         ghostList.Add(new Ghost("A baby. Died right after her birth.", 1));
@@ -62,6 +65,7 @@ public class GameManager : MonoBehaviour
         ghoulList.Add(new Ghoul(new GhoulHint[] {  A,C,E,H,J  }));
         ghoulList.Add(new Ghoul(new GhoulHint[] {  B,F,H,J  }));
 
+        ghoulIntroduction = "Socrates once said : Know thyself. \r\nWho I am ? What exactly do I need ?\r\nI overturn the graves, looking for the meaning of life.\r\nOtherwise I can only eat other people's corpses to fill the void in my mind.\r\nI will give you some hints, \r\nbring me the corpse that fits my tastes so that I may not eat you.";
 
         currentGhoul = ghoulList[UnityEngine.Random.Range(0,ghoulList.Count-1)];
     }
@@ -84,8 +88,8 @@ public class GameManager : MonoBehaviour
 }
 public class Ghost
 {
-    string summary;
-    int id;
+    public string summary;
+    public int id;
     public Ghost(string summary, int id)
     {
         this.summary = summary;
