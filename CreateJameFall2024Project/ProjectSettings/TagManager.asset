@@ -53,5 +53,8 @@ TagManager:
   - name: Ghoul
     uniqueID: 3697021889
     locked: 0
+  - name: UI
+    uniqueID: 3973700697
+    locked: 0
   m_RenderingLayers:
   - Default
