@@ -13,7 +13,18 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        
+        ghostList.Clear();
+        ghoulList.Clear();
+
+        ghostList.Add(new Ghost("Angry robust old man, always has a bottle in his hand. \r\nHe has a rosacea, a loud voice, and smells strong. He coughs a lot.\r\nWorked as a miner for many years, until his health made it impossible for him to continue working. \r\nNeighbors say that sometimes he can become very violent towards his wife. \r\nDied of alcoholism.", false,false,false,false,true,false,false));
+
+
+        //ghoulList.Add(new Ghoul(new GhoulHint("",{ }),new GhoulHint("",{ }),new GhoulHint("",{ })));
+    
+    
+    
+    
+    
     }
 
 
