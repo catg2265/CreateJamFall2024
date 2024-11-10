@@ -49,16 +49,16 @@ public class GameManager : MonoBehaviour
         ghostList.Add(new Ghost("A drag queen, around 40 years' old. Very sensitive and caring, yet has a hot-tempered personality. Stopped talking with his family for many years. Travelled around the world for performances. Died because he got choked by a huge olive during a party. He was in his fanciest clothes when he was sent to the hospital, surrounded by his loving friends.",7));
         ghostList.Add(new Ghost("A lottery winner, female first generation immigrant, around 80 years old. Strict mother at home, best bargainer at the market. Always wears the shabbiest clothes, saves every penny for her daughter's education. Died of age. She argued in anger with her family till the last day of her life.",8));
 
-        GhoulHint A = new GhoulHint("Don't be afraid of being eaten, love will accompany you.", new int[] {2,4,8});
-        GhoulHint B = new GhoulHint("Rage is my inner beast.", new int[] { 1, 7, 9 });
-        GhoulHint C = new GhoulHint("Do you believe in the power of faith?", new int[] {5,7,8 });
-        GhoulHint D = new GhoulHint("Look, I am so blue.", new int[] {3,6,7});
-        GhoulHint E = new GhoulHint("I forget my umbrella everytime when it rains.", new int[] {2,3,8});
-        GhoulHint F = new GhoulHint("My back hurts a lot these days, I think I am getting old.", new int[] { 1, 5, 9 });
-        GhoulHint G = new GhoulHint("You may not believe, but most ghouls die young.", new int[] {2,4,6});
-        GhoulHint H = new GhoulHint("I am a grown-up now, but sometimes I wonder, how does it feels to be...a female ghoul?", new int[] {5,8,9});
-        GhoulHint I = new GhoulHint("To have a big brain is not always a blessing...but it's still nice to have it.", new int[] {5,6,7});
-        GhoulHint J = new GhoulHint("La la la, la la la!", new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+        GhoulHint A = new GhoulHint("Don't be afraid of being eaten, love will accompany you.", new int[] {1,3,7});
+        GhoulHint B = new GhoulHint("Rage is my inner beast.", new int[] { 0, 6, 8 });
+        GhoulHint C = new GhoulHint("Do you believe in the power of faith?", new int[] {4,6,7 });
+        GhoulHint D = new GhoulHint("Look, I am so blue.", new int[] {2,5,6});
+        GhoulHint E = new GhoulHint("I forget my umbrella everytime when it rains.", new int[] {1,2,7});
+        GhoulHint F = new GhoulHint("My back hurts a lot these days, I think I am getting old.", new int[] { 0, 4, 8 });
+        GhoulHint G = new GhoulHint("You may not believe, but most ghouls die young.", new int[] {1,3,5});
+        GhoulHint H = new GhoulHint("I am a grown-up now, but sometimes I wonder, how does it feels to be...a female ghoul?", new int[] {4,7,8});
+        GhoulHint I = new GhoulHint("To have a big brain is not always a blessing...but it's still nice to have it.", new int[] {4,5,6});
+        GhoulHint J = new GhoulHint("La la la, la la la!", new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 });
 
         ghoulList.Add(new Ghoul(new GhoulHint[] {  B,F,J  }));
         ghoulList.Add(new Ghoul(new GhoulHint[] {  A,E,G,J  }));
@@ -95,8 +95,10 @@ public class GameManager : MonoBehaviour
         }
         if (player.corpseRange && player.InteractPressed)
         {
-            DialogueBox.SetActive(false );
+            DialogueBox.SetActive(false);
+            player.corpseRange = false;
             int match = currentGhoul.GhostMatch(player.currentCorpse);
+            print(match);
             Moodbar mb = GetComponent<Moodbar>();
             if (match >= 3)
             {
