@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
             }
             else if (match == 1)
             {
-                mood.UpdateMoodbar(20);
+                mood.UpdateMoodbar(30);
             }
             else
             {
