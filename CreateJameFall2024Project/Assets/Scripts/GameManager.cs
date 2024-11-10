@@ -38,10 +38,10 @@ public class GameManager : MonoBehaviour
         ghostList.Add(new Ghost("Young man in his thirties. Pale and thin. He used to work as a clown in a circus. Died on the stage because of a severe accident during performance. He brought a lot of laughters to kids and families. He used to sit in silence for a long time in the dressing room, and sighs.", 2));
         ghostList.Add(new Ghost("Two twin sisters. Around 10 years' old. Bodies curled up strangely because of their genetic disease. Died of their disease. Their family are too poor to offer both of them a proper medical treatment. They both refused to be the only one who gets an opportunity to be cured. They died hand in hand.", 3));
         ghostList.Add(new Ghost("Old woman, slightly fat. Sharp eyes, tender smile. After inheriting her husband's estate at an early age, she never gets married again and becomes a very successful businesswoman. People used to gossip about her a lot, saying all kinds of mean things, until she builds schools, hospitals for the whole region. Lived a long and peaceful life in her old age.",4));
-        ghostList.Add(new Ghost("Teenage boy, has beautiful eyes, very kind character.He has two big buck teeth. Super smart in his class in a private school for elites, won the Mathematical Olympiad. Sadly got bullied by classmates because of his looking. Died of suicide.",5));
+        ghostList.Add(new Ghost("Teenage boy, has beautiful eyes, very kind character. He has two big buck teeth. Super smart in his class in a private school for elites, won the Mathematical Olympiad. Sadly got bullied by classmates because of his looking. Died of suicide.",5));
         ghostList.Add(new Ghost("A male game developper. Passionate. Curses at bugs every 15 minutes. Long hair, long fingers curled in a strange way. Protruding eyes. Made a world record for the longest time without going out of the apartment when he is alive.  Buried with his computer. Died of having too much junk food and not enough sleep.",6));
         ghostList.Add(new Ghost("A drag queen, around 40 years' old. Very sensitive and caring, yet has a hot-tempered personality. Stopped talking with his family for many years. Travelled around the world for performances. Died because he got choked by a huge olive during a party. He was in his fanciest clothes when he was sent to the hospital, surrounded by his loving friends.",7));
-        ghostList.Add(new Ghost("A lottery winner, female first generation immigrant, around 80 years' old. Strict mother at home, best bargainer at the market. Always wears the shabbiest clothes, saves every penny for her daughter's education. Died of age. She argued in anger with her family till the last day of her life.",8));
+        ghostList.Add(new Ghost("A lottery winner, female first generation immigrant, around 80 years old. Strict mother at home, best bargainer at the market. Always wears the shabbiest clothes, saves every penny for her daughter's education. Died of age. She argued in anger with her family till the last day of her life.",8));
 
         GhoulHint A = new GhoulHint("Don't be afraid of being eaten, love will accompany you.", new int[] {2,4,8});
         GhoulHint B = new GhoulHint("Rage is my inner beast.", new int[] { 1, 7, 9 });
@@ -88,8 +88,29 @@ public class GameManager : MonoBehaviour
         }
         if (player.corpseRange && player.InteractPressed)
         {
-            //currentGhoul.GhostMatch(player.currentCorpse);
+            DialogueBox.SetActive(false );
+            int match = currentGhoul.GhostMatch(player.currentCorpse);
+            Moodbar mb = GetComponent<Moodbar>();
+            if (match >= 3)
+            {
+                //Victory
+            }
+            else if (match == 2)
+            {
+                //Moodbar reduce a little bit
+            }
+            else if (match == 1)
+            {
+                //Moodbar reduce medium bit
+            }
+            else
+            {
+                //Moodbar reduce a lot
+            }
         }
+
+        if (!DialogueBox.activeSelf) { moodBar.SetActive(true); }
+        else { moodBar.SetActive(false); }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {

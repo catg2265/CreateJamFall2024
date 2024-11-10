@@ -36,8 +36,6 @@ public class movement : MonoBehaviour
         if (!hintRange && corpseRange && !DialogueBox.activeSelf)
         {
             gm.displayCorpse.Invoke();
-            
-            //Set currentCorpse value
         }
         if (!hintRange && !gm.intro && !corpseRange )
         {
