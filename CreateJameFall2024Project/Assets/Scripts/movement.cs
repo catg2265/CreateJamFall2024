@@ -4,54 +4,65 @@ using UnityEngine.InputSystem;
 public class movement : MonoBehaviour
 {
 
-    [SerializeField] private PlayerInput input;
+    public PlayerInput input;
     public GameObject EButton;
     public GameObject DialogueBox;
+    public GameManager gm;
 
     Vector2 movevector;
     public float moveSpeed = 5f;
     [SerializeField] private Rigidbody2D rb;
-    public bool canMove = true;
+    public bool canMove = false;
     bool isFacingRight;
 
     bool hintRange = false;
     bool corpseRange = false;
 
+    public bool InteractPressed = false;
+
+    public int currentCorpse;
+
+    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         EButton.SetActive(false);
-        DialogueBox.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!hintRange && corpseRange && !DialogueBox.activeSelf)
+        {
+            gm.displayCorpse.Invoke();
+        }
+        if (!hintRange && !gm.intro && !corpseRange )
+        {
+            DialogueBox.SetActive(false);
+        }
         if (input.actions["Interact"].WasPressedThisFrame())
         {
+            InteractPressed = true;
             if (hintRange && !corpseRange && !DialogueBox.activeSelf)
             {
-                //Activate hint
-                print("hint");
+                gm.displayHints.Invoke();
             }
-            else if (!hintRange && corpseRange && !DialogueBox.activeSelf)
-            {
-                //Activate specific corpse data
-            }
-                
-
+            
         }
+        else
+            InteractPressed = false;
 
         Flip();
     }
     private void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(movevector.x * moveSpeed , movevector.y*moveSpeed);
+        if (canMove)
+            rb.linearVelocity = new Vector2(movevector.x * moveSpeed , movevector.y*moveSpeed);
     }
     void OnMove(InputValue input)
     {
-        if (canMove) 
-            movevector = input.Get<Vector2>();
+        movevector = input.Get<Vector2>();
     }
     private void Flip()
     {
