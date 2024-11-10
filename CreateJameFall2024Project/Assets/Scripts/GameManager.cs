@@ -13,9 +13,12 @@ public class GameManager : MonoBehaviour
     public GameObject moodBar;
     public GameObject hintSign;
     public GameObject DialogueBox;
+    public GameObject VictoryScreen;
+    public GameObject DefeatScreen;
     public TextMeshProUGUI dialogueText;
 
     public movement player;
+    public Moodbar mood;
 
     public List<Ghost> ghostList = new List<Ghost>();
     public List<Ghoul> ghoulList = new List<Ghoul>();
@@ -25,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     public UnityEvent displayHints;
     public UnityEvent displayCorpse;
+    public UnityEvent gameLost;
 
     private void Start()
     {
@@ -32,6 +36,8 @@ public class GameManager : MonoBehaviour
         ghoulList.Clear();
         moodBar.SetActive(false);
         hintSign.SetActive(false);
+        VictoryScreen.SetActive(false);
+        DefeatScreen.SetActive(false);
 
         ghostList.Add(new Ghost("Angry robust old man, always has a bottle in his hand. He has a rosacea, a loud voice, and smells strong. He coughs a lot. Worked as a miner for many years, until his health made it impossible for him to continue working. Neighbors say that sometimes he can become very violent towards his wife. Died of alcoholism.", 0));
         ghostList.Add(new Ghost("A baby. Died right after her birth.", 1));
@@ -73,6 +79,7 @@ public class GameManager : MonoBehaviour
 
         displayHints.AddListener(DisplayHints);
         displayCorpse.AddListener(DisplayCorpse);
+        gameLost.AddListener(LostGame);
 
     }
 
@@ -93,19 +100,22 @@ public class GameManager : MonoBehaviour
             Moodbar mb = GetComponent<Moodbar>();
             if (match >= 3)
             {
-                //Victory
+                player.enabled = false;
+                moodBar.SetActive(false);
+                DialogueBox.SetActive(false);
+                VictoryScreen.SetActive(true);
             }
             else if (match == 2)
             {
-                //Moodbar reduce a little bit
+                mood.UpdateMoodbar(10);
             }
             else if (match == 1)
             {
-                //Moodbar reduce medium bit
+                mood.UpdateMoodbar(20);
             }
             else
             {
-                //Moodbar reduce a lot
+                mood.UpdateMoodbar(40);
             }
         }
 
@@ -135,7 +145,18 @@ public class GameManager : MonoBehaviour
         dialogueText.text = string.Empty;
         dialogueText.text = ghostList[player.currentCorpse].summary;
     }
-    public void Restart()
+    void LostGame()
+    {
+        player.enabled = false;
+        moodBar.SetActive(false);
+        DialogueBox.SetActive(false);
+        DefeatScreen.SetActive(true);
+    }
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("Main");
+    }
+    public void ReturnToTitle()
     {
         SceneManager.LoadScene("TitleScreen");
     }

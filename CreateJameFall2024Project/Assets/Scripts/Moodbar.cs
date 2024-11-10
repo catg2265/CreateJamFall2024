@@ -9,6 +9,8 @@ public class Moodbar : MonoBehaviour
     public int medThreshold = 70;
     public int lowThreshold = 30;
 
+    public GameManager gm;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,7 +21,6 @@ public class Moodbar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(moodSlider.value);
         if (moodSlider.value > 0)
         {
             if (moodSlider.value <= lowThreshold)
@@ -35,9 +36,9 @@ public class Moodbar : MonoBehaviour
                 Gfx.color = Color.green;
             }
         }
-        else
+        else if (moodSlider.value <= 0)
         {
-            //End the game
+            gm.gameLost.Invoke();
         }
         
     }
