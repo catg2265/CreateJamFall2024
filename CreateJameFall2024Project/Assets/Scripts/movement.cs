@@ -16,7 +16,7 @@ public class movement : MonoBehaviour
     bool isFacingRight;
 
     bool hintRange = false;
-    bool corpseRange = false;
+    public bool corpseRange = false;
 
     public bool InteractPressed = false;
 
@@ -36,6 +36,8 @@ public class movement : MonoBehaviour
         if (!hintRange && corpseRange && !DialogueBox.activeSelf)
         {
             gm.displayCorpse.Invoke();
+            
+            //Set currentCorpse value
         }
         if (!hintRange && !gm.intro && !corpseRange )
         {

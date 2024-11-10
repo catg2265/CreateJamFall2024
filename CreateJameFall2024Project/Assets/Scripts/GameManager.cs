@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -64,7 +65,7 @@ public class GameManager : MonoBehaviour
         ghoulList.Add(new Ghoul(new GhoulHint[] {  B,F,H,J  }));
 
         ghoulIntroduction = "Socrates once said : Know thyself. Who I am ? What exactly do I need ? \nI overturn the graves, looking for the meaning of life. Otherwise I can only eat other people's corpses to fill the void in my mind. \n\nI will give you some hints, bring me the corpse that fits my tastes so that I may not eat you.";
-
+        DialogueBox.SetActive(true);
         dialogueText.text = ghoulIntroduction;
 
         currentGhoul = ghoulList[UnityEngine.Random.Range(0,ghoulList.Count-1)];
@@ -84,12 +85,15 @@ public class GameManager : MonoBehaviour
             DialogueBox.SetActive(false);
             player.canMove = true;
             hintSign.SetActive(true);
-
+        }
+        if (player.corpseRange && player.InteractPressed)
+        {
+            //currentGhoul.GhostMatch(player.currentCorpse);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            QuitGame();
         }
     }
     void DisplayHints()
@@ -108,8 +112,16 @@ public class GameManager : MonoBehaviour
     {
         DialogueBox.SetActive(true);
         dialogueText.text = string.Empty;
+        dialogueText.text = ghostList[player.currentCorpse].summary;
     }
-
+    public void Restart()
+    {
+        SceneManager.LoadScene("TitleScreen");
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
 public class Ghost
 {
